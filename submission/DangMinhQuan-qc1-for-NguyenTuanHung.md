@@ -2,7 +2,7 @@
 
 Lô được kiểm (học viên): NGUYỄN TUẤN HƯNG — 2A202603199
 Người kiểm (học viên): Đặng Minh Quân — 2A202603171 — ngày 21/11/2026 — Phiên bản guideline: Road v1.0
-File được kiểm (tên + `revision` trong manifest): `NguyenTuanHung-front.zip`, `NguyenTuanHung-fisheye.zip`, `NguyenTuanHung-front-extra.zip`, `NguyenTuanHung-fisheye-extra.zip` — bản trong `r1/` (revision 1)
+File được kiểm (tên + `revision` trong manifest): `NguyenTuanHung-front.zip`, `NguyenTuanHung-fisheye.zip`, `NguyenTuanHung-front-extra.zip`, `NguyenTuanHung-fisheye-extra.zip` — bản trong `r1/`, manifest ghi `revision: 1`. Lưu ý: manifest revision 1 chỉ khai báo hai file lõi (front, fisheye); hai zip `-extra` nằm ngoài manifest nên tôi kiểm riêng và không cộng vào kết luận chính thức của lô.
 Số ảnh kiểm: 6 (A01–A06) + 22 ảnh còn lại kiểm bằng `road_check lint`   Số nhãn đã kiểm (shape + tag): 326 (214 shape + 112 tag)
 
 ## Tổng hợp theo mã
