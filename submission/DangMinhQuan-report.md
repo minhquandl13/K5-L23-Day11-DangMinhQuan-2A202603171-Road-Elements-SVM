@@ -27,7 +27,7 @@ Tổng: 20 ảnh đã gán (12 front + 8 fisheye), 158 shape (113 front + 45 fis
 | Ảnh | Nhãn | Phân vân giữa | Đã chọn | Lý do |
 | --- | --- | --- | --- | --- |
 | A05 — **CHỜ LEAD XÁC NHẬN** | lane | mép đường vật lý: để `lane` trống hay coi mép là L1/R1 | Để trống, chỉ gán `road_curb` | Đường một chiều hẹp, hai bên xe đỗ sát, không có vạch sơn nào. Tôi không tự đặt luật: giữ nguyên trạng và chờ lead trả lời |
-| A03 — **CHỜ LEAD XÁC NHẬN** | lane | vạch vàng đôi **một liền một đứt** (QCVN 1.4) | `kind = double`, `style = solid` | Road v1.0 không có giá trị cho vạch 1.4 hỗn hợp, nên một nửa thông tin (nửa đứt) bị mất khi chuyển sang thuộc tính. Đây là **hạn chế của schema**, không phải lỗi vẽ: đã ghi lại và chờ lead cách chuẩn hoá |
+| A03 — **CHỜ LEAD XÁC NHẬN** | lane | vạch vàng đôi **một liền một đứt** (QCVN 1.4) | `kind = double`, `style = solid` | Road v1.0 không có giá trị cho vạch 1.4 hỗn hợp. Khi chuyển sang thuộc tính thì nửa đứt bị mất, nên đây là hạn chế của schema chứ không phải tôi vẽ sai. Tôi ghi lại và chờ lead cách chuẩn hoá |
 | B03 | crosswalk | cụm vạch trắng ở rìa trái có phải vạch ngựa vằn | Không vẽ | Đã phóng 3× vùng rìa: đó là vạch mép đường chạy dọc + làn xe đạp sơn đỏ, không phải vạch ngựa vằn ngang. Ảnh bị cắt nhưng đối tượng không thuộc `crosswalk`, nên bỏ là đúng chứ không phải vì "gần rìa" |
 | A06, A08 | drivable | làn sơn xanh có tính vào vùng lái | Không | Làn xe đạp không phải phần đường xe chạy |
 | B05–B08 | lane | có dùng L1/R1 ở camera hai bên | position = other | Quy tắc 4 bắt buộc `other` |
@@ -38,7 +38,7 @@ Bạn kiểm lô của tôi: NGUYỄN TUẤN HƯNG — 2A202603199   Quyết đ�
 | --- | ---: | --- | --- |
 | – | 0 | – | – |
 
-Chiều ngược lại đã làm được: tôi kiểm lô của Hưng (bản `r1/`, 28 ảnh, 326 nhãn) và ghi phiếu `DangMinhQuan-qc1-for-NguyenTuanHung.md`. Kết quả **Hold**: 2 lỗi nặng tiềm tàng (A06 và A14 thiếu R1 — chờ lead xác nhận vạch mép phải có phải R1), A05 không có vạch sơn nên không kết luận thay lead, và B11 không có shape nào (chờ lead phân mã). Lỗi chính 0/326 = 0 %.
+Phiếu cho lô của tôi thì chưa nhận được. Phiếu tôi làm cho Hưng thì đã xong: `DangMinhQuan-qc1-for-NguyenTuanHung.md`, kiểm bản `r1/` gồm 28 ảnh, 326 nhãn. Kết quả Hold. A06 và A14 thiếu R1, nhưng vạch mép phải có phải R1 hay không thì phải chờ lead trả lời. A05 không có vạch sơn nên tôi không kết luận thay lead. B11 không có shape nào, cũng chờ lead xem xếp vào mã nào. Lỗi chính 0 trên 326 nhãn.
 
 ## 5. Kiểm file export
 | File | Mở lại được? | Số shape ảnh 1 (job / file) | Số shape ảnh 2 (job / file) | Tag camera có trong XML? |
@@ -75,11 +75,11 @@ Cả hai cảnh báo mức nặng đều thuộc **A05** (L1 và R1 của cùng 
 ```
 
 ## 7. Tự đánh giá
-**Nguồn gốc hai lỗi QC1-04 và QC1-05 nêu dưới đây:** do **tôi tự phát hiện** khi chạy `python -m road_lab.road_check lint` trên chính file export của mình, rồi tự sửa — **không phải** kết quả của một phiếu QC chính thức (mục 4 ghi rõ chưa nhận được phiếu nào). Cụ thể lint báo 6 cặp polyline cùng `position` (A03, A04, A08, A09, A10, A11) và 5 polyline vẽ ngược chiều (A03, A07, A09, A11, A12); tôi đã gộp các cặp thành một nét và đảo chiều các đường còn lại, sau đó lint còn 0 lỗi mức chính.
+**Nguồn gốc hai lỗi QC1-04 và QC1-05 dưới đây:** tôi tự thấy khi chạy `python -m road_lab.road_check lint` trên file export của mình, rồi tự sửa. Không phải kết quả của phiếu QC nào, mục 4 đã ghi là chưa nhận được phiếu. Lint báo 6 cặp polyline trùng `position` (A03, A04, A08, A09, A10, A11) và 5 polyline vẽ ngược chiều (A03, A07, A09, A11, A12). Tôi gộp mỗi cặp thành một nét, đảo chiều các đường còn lại, sau đó lint còn 0 lỗi mức chính.
 
 Hai lỗi này là loại tôi mắc nhiều nhất hôm nay. Cách tránh ở Ngày 20: luôn chạy `road_check lint` trước khi Finish job; vạch đứt vẽ **một nét liền** băng qua khe (không tách đoạn), và luôn bắt đầu từ mép dưới (gần xe) đi lên xa.
 
-**Nhãn đi vào model ở đâu:** polyline `lane` bị lấy mẫu theo hàng để tạo cặp (y, x) làm đích row-anchor. Nếu guideline yêu cầu một nét liên tục cho vạch đứt mà tôi tách thành nhiều polyline, dữ liệu trở thành không nhất quán: ở những hàng thuộc khoảng khe không có điểm annotation, bước chuyển polyline → row-anchor có thể hiểu là "không có làn", nên model mất khả năng dự đoán vị trí làn đúng tại chỗ đường đứt nét và LKA mất bám làn ở đó. Mức ảnh hưởng thực tế còn tuỳ pipeline chuyển đổi xử lý khoảng khe thế nào (nội suy hay bỏ trống) — đây là điểm tôi muốn kiểm chứng thêm.
+**Nhãn đi vào model ở đâu:** polyline `lane` được lấy mẫu theo từng hàng, ra các cặp (y, x) làm đích row-anchor. Vạch đứt mà tách thành nhiều polyline thì những hàng nằm trong khe không có điểm nào. Bước chuyển sang row-anchor có thể hiểu đó là "không có làn", model không dự đoán được vị trí làn ngay tại đoạn đứt, LKA mất bám làn ở đó. Ảnh hưởng thật bao nhiêu còn tuỳ pipeline xử lý khe kiểu nội suy hay bỏ trống. Chỗ này tôi muốn kiểm chứng thêm.
 
 ## 8. (Tùy chọn, buffer) Từ polyline đến đích row-anchor
-Không làm — cần bài của bạn được kiểm cùng ảnh, chưa nhận được file của bạn Hưng.
+Chưa làm. Mục này là tuỳ chọn, và tôi chưa có thời gian so polyline của mình với polyline của Hưng trên cùng ảnh.

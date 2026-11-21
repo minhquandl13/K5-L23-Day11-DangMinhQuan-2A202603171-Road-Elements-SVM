@@ -2,7 +2,7 @@
 
 Lô được kiểm (học viên): NGUYỄN TUẤN HƯNG — 2A202603199
 Người kiểm (học viên): Đặng Minh Quân — 2A202603171 — ngày 21/11/2026 — Phiên bản guideline: Road v1.0
-File được kiểm (tên + `revision` trong manifest): `NguyenTuanHung-front.zip`, `NguyenTuanHung-fisheye.zip`, `NguyenTuanHung-front-extra.zip`, `NguyenTuanHung-fisheye-extra.zip` — bản trong `r1/`, manifest ghi `revision: 1`. Lưu ý: manifest revision 1 chỉ khai báo hai file lõi (front, fisheye); hai zip `-extra` nằm ngoài manifest nên tôi kiểm riêng và không cộng vào kết luận chính thức của lô.
+File được kiểm (tên + `revision` trong manifest): `NguyenTuanHung-front.zip`, `NguyenTuanHung-fisheye.zip`, `NguyenTuanHung-front-extra.zip`, `NguyenTuanHung-fisheye-extra.zip`, bản trong `r1/`, manifest ghi `revision: 1`. Manifest revision 1 chỉ khai báo front và fisheye. Hai zip `-extra` nằm ngoài manifest, tôi kiểm riêng và không tính vào kết luận của lô.
 Số ảnh kiểm: 6 (A01–A06) + 22 ảnh còn lại kiểm bằng `road_check lint`   Số nhãn đã kiểm (shape + tag): 326 (214 shape + 112 tag)
 
 ## Tổng hợp theo mã
@@ -23,26 +23,27 @@ Số ảnh kiểm: 6 (A01–A06) + 22 ảnh còn lại kiểm bằng `road_check
 
 Lô gồm 214 shape (47 lane, 42 road_curb, 32 drivable, 20 crosswalk, 37 đèn, 36 biển) + 112 tag = 326 nhãn. QC1-07 gộp drivable + crosswalk + road_curb theo cách `road_check` gán mã.
 
-Tag: 28/28 ảnh đủ bốn tag, `camera` đúng cho cả bốn nhóm (front, fisheye_front/rear/left/right). File: cả bốn zip mở được, không có nhãn lạ.
+Tag: 28/28 ảnh đủ bốn tag, `camera` đúng ở cả bốn nhóm (front, fisheye_front/rear/left/right). Bốn zip đều mở được, không có nhãn lạ.
 
 ## Danh sách lỗi (mỗi lỗi một dòng)
 | # | Mã | Ảnh | Nhãn (label, id) | Mức | Mô tả ngắn |
 | --- | --- | --- | --- | --- | --- |
-| 1 | QC1-02 | A06 | lane (R1) | nặng | Thiếu R1. Ảnh có vạch trắng mép phải của làn (vùng x≈640–900, y≈450–470) nên đây là bỏ sót, không phải "không thấy vạch" |
+| 1 | QC1-02 | A06 | lane (R1) | nặng | Thiếu R1. Ảnh có vạch trắng mép phải của làn, vùng x≈640–900, y≈450–470, nên đây là bỏ sót chứ không phải "không thấy vạch" |
 | 2 | QC1-02 | A14 | lane (R1) | nặng | Thiếu R1. Ảnh đêm, vạch mép phải vẫn đọc được nhờ đèn đường (vùng x≈690–720, y≈480–580) |
-| 3 | QC1-02 | A05 | lane (L1, R1) | nặng (chờ lead) | Đường không có vạch sơn nào — cùng ca mơ hồ với lô của tôi; không kết luận thay lead |
+| 3 | QC1-02 | A05 | lane (L1, R1) | nặng (chờ lead) | Không có vạch sơn nào trên đường. Trùng ca mơ hồ với lô của tôi, tôi không kết luận thay lead |
 
 ## Ca mơ hồ
 | Ảnh | Câu hỏi cho lead | Lời đáp (nếu có) |
 | --- | --- | --- |
 | A05 | Đường một chiều hẹp, hai bên xe đỗ sát lề, không có vạch sơn. Để `lane` trống và chỉ vẽ `road_curb` có đúng không? | (chờ) |
 | A06 | Vạch trắng phía phải ở x≈640–900 thuộc **R1** của làn xe mình hay là vạch phân làn/vành đai bên phải? Nếu là R1 thì đây là lỗi nặng (bỏ sót) | (chờ) |
-| A14 | Như A06 — vạch mép phải ban đêm là R1 hay vạch của làn bên cạnh? | (chờ) |
+| A14 | Câu hỏi như A06. Vạch mép phải ban đêm là R1 hay vạch của làn bên cạnh? | (chờ) |
 | B11 | Ảnh **không có shape nào** (chỉ có 4 tag) trong khi vạch kẻ và vùng lái nhìn thấy rõ. Xếp vào QC1-07 (bỏ sót vùng lái/vạch) hay QC1-02 (bỏ sót vạch làn)? Cả ảnh bị bỏ trống có tính là một lỗi nặng hay nhiều lỗi? | (chờ) |
 
 ## Quyết định
-Lỗi nặng: 2 (A06 R1, A14 R1) — cộng 2 mục chờ lead (A05)   Lỗi chính: 0 / 326 nhãn = 0 %   Lỗi nhẹ: 0   Ca chờ lead: 4
+Số lỗi nặng: 2 (A06 R1, A14 R1), thêm 2 mục A05 chờ lead. Lỗi chính: 0 trên 326 nhãn. Lỗi nhẹ: 0. Mục chờ lead: 4.
 Quyết định (Release / Hold / Rework): **Hold**
-Lý do (theo luật của phiếu): mức nặng của A06/A14 phụ thuộc việc vạch phải có phải là R1 hay không, và B11 chưa rõ mã — đều là câu hỏi còn chờ lead, ảnh hưởng trực tiếp tới kết luận. Nếu lead xác nhận vạch phải là R1 thì hai lỗi này là lỗi nặng thật và quyết định chuyển thành **Rework** (luật: có ít nhất một lỗi nặng → Rework). Tỉ lệ lỗi chính 0 % < 5 % nên không có lý do Rework từ phía lỗi chính.
+
+Vì sao Hold: A06 và A14 chỉ thành lỗi nặng nếu vạch trắng bên phải thật là R1 của làn xe mình; B11 thì chưa biết xếp mã nào. Ba câu này đều phải hỏi lead và đều đổi được kết luận, nên tôi giữ Hold thay vì tự chọn một bên. Nếu lead nói vạch đó là R1 thì kết luận thành **Rework**, theo luật của phiếu: có một lỗi nặng là Rework. Lỗi chính 0 % nên không có cớ Rework từ phía lỗi chính.
 
 Loại lỗi: bỏ sót = thiếu nhãn phải có; thừa = gán cái không phải đối tượng; sai phạm vi = hình lệch, sai chiều, dừng sai chỗ, tràn vùng. Ba loại này theo cách chia lỗi gán nhãn của ISO/IEC 5259-4 (mục 8.4.2); "sai thuộc tính" và "lỗi file" là khóa học thêm. Cách xếp mức: [thang mức lỗi](../docs/qc_severity_road_v1.0.md).
