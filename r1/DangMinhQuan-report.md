@@ -59,9 +59,9 @@ Phiếu cho lô của tôi thì chưa nhận được. Phiếu tôi làm cho Hư
 Cả hai cảnh báo mức nặng đều thuộc **A05** (L1 và R1 của cùng một ảnh) — không có ảnh nào khác bị nặng.
 
 ## 6. Ảnh chụp màn hình
-1. Tab Labels của project: `screenshots/labels.png`
-2. Ảnh camera trước đã gán đủ: `screenshots/front-a04.png`
-3. Ảnh fisheye, phóng to đoạn polyline cong: `screenshots/fisheye-b04.png`
+1. Tab Labels của project: `../screenshots/labels.png`
+2. Ảnh camera trước đã gán đủ: `../screenshots/front-a04.png`
+3. Ảnh fisheye, phóng to đoạn polyline cong: `../screenshots/fisheye-b04.png`
 4. Đoạn XML có `<polyline label="lane">`:
 ```xml
 <polyline label="lane" source="manual" occluded="0"
